@@ -5,20 +5,21 @@ class NoteForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-      title: this.props.note.title,
-      body: this.props.note.body
+      title: props.title,
+      body: props.body,
 		}
 	}
+  resetNotification = () => {this.setState({notification: '', transitionIn: false})}
 
   handleInput = (e) => {
-    this.props.resetNotification()
+    this.resetNotification()
     this.setState({[e.target.name]: e.target.value})
   }
 
   handleBlur = () => {
     const note = {title: this.state.title, body: this.state.body }
     axios.put(
-      `http://localhost:3001/api/v1/notes/${this.props.note.id}`,
+      `http://localhost:3001/api/v1/notes/${this.state.id}`,
       {note: note}
       )
     .then(response => {
