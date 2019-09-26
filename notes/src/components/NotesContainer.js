@@ -17,7 +17,7 @@ class NotesContainer extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3001/api/v1/notes.json')
+    axios.get('http://localhost:3001/api/v1/Notes.json')
     .then(response => {
       this.setState({Notes: response.data})
     })
@@ -25,7 +25,7 @@ class NotesContainer extends Component {
   }
 
   addNewNote = () => {
-    axios.post('http://localhost:3001/api/v1/notes', {note: {title: '', body: ''}})
+    axios.post('http://localhost:3001/api/v1/Notes', {note: {title: '', body: ''}})
     .then(response => {
       const Notes = update(this.state.Notes, { $splice: [[0, 0, response.data]]})
       this.setState({Notes: Notes, editingNoteId: response.data.id})
@@ -40,7 +40,7 @@ class NotesContainer extends Component {
   }
 
   deleteNote = (id) => {
-    axios.delete(`http://localhost:3001/api/v1/notes/${id}`)
+    axios.delete(`http://localhost:3001/api/v1/Notes/${id}`)
     .then(response => {
       const noteIndex = this.state.Notes.findIndex(x => x.id === id)
       const Notes = update(this.state.Notes, { $splice: [[noteIndex, 1]]})
