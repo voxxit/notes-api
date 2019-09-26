@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 import NotesContainer from './NotesContainer';
 
 
 
-class Home extends React.Component {
+class Home extends Component {
   render() {
     return (
       <div>
