@@ -7,9 +7,14 @@
 <<<<<<< HEAD
     "immutability-helper": "^3.0.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router": "^5.1.0",
+=======
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+>>>>>>> parent of a9d43f5... got working again
 =======
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
