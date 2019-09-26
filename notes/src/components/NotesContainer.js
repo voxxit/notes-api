@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios'
-import Note from './Note'
+import Notes from './Notes'
 import NoteForm from './NoteForm'
 import update from 'immutability-helper'
 import Notification from './Notification'
@@ -9,7 +9,7 @@ class NotesContainer extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      Notes: [],
+      notes: [],
       editingNoteId: null,
       notification: '',
       transitionIn: false
@@ -18,36 +18,36 @@ class NotesContainer extends Component {
 
   componentDidMount() {
     axios
-    .get('http://localhost:3001/api/v1/Notes.json')
+    .get('http://localhost:3001/api/v1/notes.json')
     .then(response => {
-      this.setState({Notes: response.data})
+      this.setState({notes: response.data})
     })
     .catch(error => console.log(error))
   }
 
   addNewNote = () => {
     axios
-    .post('http://localhost:3001/api/v1/Notes', {note: {title: '', body: ''}})
+    .post('http://localhost:3001/api/v1/notes', {note: {title: '', body: ''}})
     .then(response => {
-      const Notes = update(this.state.Notes, { $splice: [[0, 0, response.data]]})
-      this.setState({Notes: Notes, editingNoteId: response.data.id})
+      const notes = update(this.state.notes, { $splice: [[0, 0, response.data]]})
+      this.setState({notes: notes, editingNoteId: response.data.id})
     })
     .catch(error => console.log(error))
   }
 
   updateNote = (note) => {
-    const noteIndex = this.state.Notes.findIndex(x => x.id === note.id)
-    const Notes = update(this.state.Notes, {[noteIndex]: { $set: note }})
-    this.setState({Notes: Notes, notification: 'All changes saved', transitionIn: true})
+    const noteIndex = this.state.notes.findIndex(x => x.id === note.id)
+    const notes = update(this.state.notes, {[noteIndex]: { $set: note }})
+    this.setState({notes: notes, notification: 'All changes saved', transitionIn: true})
   }
 
   deleteNote = (id) => {
     axios
-    .delete(`http://localhost:3001/api/v1/Notes/${id}`)
+    .delete(`http://localhost:3001/api/v1/notes/${id}`)
     .then(response => {
-      const noteIndex = this.state.Notes.findIndex(x => x.id === id)
-      const Notes = update(this.state.Notes, { $splice: [[noteIndex, 1]]})
-      this.setState({Notes: Notes})
+      const noteIndex = this.state.notes.findIndex(x => x.id === id)
+      const notes = update(this.state.notes, { $splice: [[noteIndex, 1]]})
+      this.setState({notes: notes})
     })
     .catch(error => console.log(error))
   }
@@ -67,14 +67,20 @@ class NotesContainer extends Component {
           </button>
           <Notification in={this.state.transitionIn} notification= {this.state.notification} />
         </div>
-        {this.state.Notes.map((note) => {
+        {this.state.notes.map((note) => {
           if(this.state.editingNoteId === note.id) {
-            return(<NoteForm note={note} key={note.id} updateNote={this.updateNote}
-                    titleRef= {input => this.title = input}
-                    resetNotification={this.resetNotification} />)
+            return(<NoteForm 
+                      note={note} 
+                      key={note.id} 
+                      updateNote={this.updateNote}
+                      titleRef= {input => this.title = input}
+                      resetNotification={this.resetNotification} />)
           } else {
-            return (<Note note={note} key={note.id} onClick={this.enableEditing}
-                    onDelete={this.deleteNote} />)
+            return (<Notes 
+                      note={note} 
+                      key={note.id} 
+                      onClick={this.enableEditing}
+                      onDelete={this.deleteNote} />)
           }
         })}
       </div>

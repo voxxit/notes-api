@@ -5,21 +5,21 @@ class NoteForm extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-      title: props.title,
-      body: props.body,
+      title: this.props.note.title,
+      body: this.props.note.body
 		}
 	}
-  resetNotification = () => {this.setState({notification: '', transitionIn: false})}
 
   handleInput = (e) => {
-    this.resetNotification()
+    this.props.resetNotification()
     this.setState({[e.target.name]: e.target.value})
   }
 
   handleBlur = () => {
     const note = {title: this.state.title, body: this.state.body }
-    axios.put(
-      `http://localhost:3001/api/v1/notes/${this.state.id}`,
+    axios
+    .put(
+      `http://localhost:3001/api/v1/notes/${this.props.note.id}`,
       {note: note}
       )
     .then(response => {
@@ -33,11 +33,21 @@ class NoteForm extends Component {
     return (
       <div className="tile">
       	<form onBlur={this.handleBlur} >
-					<input className='input' type="text" name="title" placeholder='Enter a Title'
-            value={this.state.title} onChange={this.handleInput}
+          <input 
+            className='input' 
+            type="text" 
+            name="title" 
+            placeholder='Enter a Title'
+            value={this.state.title} 
+            onChange={this.handleInput}
             ref={this.props.titleRef} />
-					<textarea className='input' name="body" placeholder='Describe your note'
-            value={this.state.body} onChange={this.handleInput}></textarea>
+          <textarea 
+            className='input' 
+            name="body" 
+            placeholder='Describe your note'
+            value={this.state.body} 
+            onChange={this.handleInput}>
+          </textarea>
       	</form>
       </div>
     );
