@@ -1,7 +1,10 @@
 module Api::V1
     class NotesController < ApplicationController
+      before_action :authenticate_user!
+
+
       def index
-        @notes = Note.order("created_at DESC")
+        @notes = current_user.Note.order("created_at DESC")
         render json: @notes
       end
   

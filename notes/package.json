@@ -10,6 +10,7 @@
 <<<<<<< HEAD
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+<<<<<<< HEAD
     "react-router": "^5.1.0",
 =======
     "react": "^16.9.0",
@@ -20,6 +21,8 @@
     "react-dom": "^16.9.0",
 >>>>>>> parent of a9d43f5... got working again
     "react-router-dom": "^5.1.0",
+=======
+>>>>>>> parent of 2efe9f5... react router added, devise removed,
     "react-scripts": "3.0.1",
     "react-transition-group": "^4.3.0"
 =======
