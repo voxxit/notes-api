@@ -14,7 +14,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/notes" component={NotesContainer} />
-          <Route exact path="/new_note" component={NewNote} />
+          <Route exact path="/notes/new" component={NewNote} />
           
         </Switch>
       </div>
