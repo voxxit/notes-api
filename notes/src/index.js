@@ -6,8 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 
-
-
 document.addEventListener('DOMContentLoaded', () => {
     ReactDOM.render(
       <Router>

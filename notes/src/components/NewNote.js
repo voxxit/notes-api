@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios'
+import ReduxThunk from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+
+// import axios from 'axios'
 import update from 'immutability-helper'
 
 
@@ -17,8 +20,16 @@ class NewNote extends Component {
     }
     
     addNewNote = () => {
-        axios
-        .post(`http://localhost:3001/api/v1/notes`, {note: {title: this.state.title , body: this.state.body}})
+        const data = { note: { title: this.state.title , body: this.state.body }}
+        const url = `http://localhost:3001/api/v1/notes`
+        
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data), // data can be `string` or {object}!
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
         .then(response => {
           const notes = update(this.state.notes, { $splice: [[0, 0, response.data]]})
           this.setState({notes: notes, editingNoteId: response.data.id})
