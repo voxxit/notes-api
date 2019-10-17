@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import ReduxThunk from 'redux-thunk'
-import { createStore, applyMiddleware } from 'redux'
+import React, { Component } from 'react';
+// import ReduxThunk from 'redux-thunk';
+// import { createStore, applyMiddleware } from 'redux';
 
 // import axios from 'axios'
 import update from 'immutability-helper'

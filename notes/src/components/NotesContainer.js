@@ -4,6 +4,12 @@ import update from 'immutability-helper'
 import Notification from './Notification'
 
 class NotesContainer extends React.Component {
+  constructor(props) {
+		super(props)
+		this.state = {
+      notes: []
+		}
+	}
 
   componentDidMount() {
     fetch('http://localhost:3001/api/v1/notes.json')
@@ -37,8 +43,8 @@ class NotesContainer extends React.Component {
   }
 
   render() {
-    const { notes } = this.props;
-    const notesList = notes.map((note) => {
+    console.log(this.props, this.state);
+    const notesList = this.state.notes.map((note) => {
       return (
         <div className="tile">
           <span className="deleteButton" onClick={this.handleDelete}>x</span>
